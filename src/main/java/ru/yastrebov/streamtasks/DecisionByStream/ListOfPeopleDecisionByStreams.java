@@ -1,17 +1,16 @@
-package ru.yastrebov.streamtasks.DecisionByCycles;
+package ru.yastrebov.streamtasks.DecisionByStream;
 
 import ru.yastrebov.streamtasks.Person;
 import ru.yastrebov.streamtasks.enums.Nationality;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
-
-public class ListOfPeopleDecisionByCycles {
-        public static void main(String[] args) {
-
+public class ListOfPeopleDecisionByStreams {
+    public static void main(String[] args) {
         Person p1 = new Person(1, "Василий", "Чапаев", "Иванович", 45, Nationality.UKRAINIAN);
         Person p2 = new Person(2, "Василий", "Чапаев", "Иванович", 45, Nationality.UKRAINIAN);
         Person p3 = new Person(3, "Виктор", "Чапаев", "Ипполитович", 37, Nationality.JEW);
@@ -35,83 +34,60 @@ public class ListOfPeopleDecisionByCycles {
 
         listOfPeople.addAll(tmpListOfPeople);
 
-//        for(Person person: listOfPeople)  {
+//                for(Person person: listOfPeople)  {
 //            System.out.println(person.getId() + ". " + person.getName() + " " + person.getPatronymicName() + " " + person.getLastName() + " , " + person.getAge() + " , " + person.getNationality());
 //        }
-
 //        peopleOverEighteen(listOfPeople);
 //        averageAge(listOfPeople);
 //        peopleOfEachNationality(listOfPeople);
-        fullNames(listOfPeople);
+//        fullNames(listOfPeople);
 //        withInitials(listOfPeople);
-//       listByLastname(listOfPeople);
+       listByLastname(listOfPeople);
 //        uniquePeople(listOfPeople);
 //        sortedByLastname(listOfPeople);
-//peopleByNationality(listOfPeople, Nationality.JEW);
+//        peopleByNationality(listOfPeople, Nationality.UKRAINIAN);
+
     }
 
     public static List<Person> peopleOverEighteen(List<Person> listOfPeople) {
 
-        List<Person> peopleOverEighteen = new ArrayList<>();
-
-        for (Person person : listOfPeople) {
-            if (person.getAge() > 18) {
-                peopleOverEighteen.add(person);
-            }
-        }
+        List<Person> peopleOverEighteen = listOfPeople.stream()
+                .filter(a -> a.getAge() > 18)
+                .collect(Collectors.toList());
 
         System.out.println("This people are over 18 years old:");
-        for (Person person : peopleOverEighteen) {
-            System.out.println(person.getId() + ". " + person.getName() + "  " + person.getPatronymicName() + "  " + person.getLastName() + " , " + person.getAge() + " , " + person.getNationality());
-        }
-        return (peopleOverEighteen);
-
+        for (Person person : peopleOverEighteen)
+            System.out.println(person);
+        return peopleOverEighteen;
     }
 
     public static Double averageAge(List<Person> listOfPeople) {
 
-        Integer tmpAverageAge = 0;
-        Integer counter = 0;
+        Double averageAge = listOfPeople.stream()
+                .collect(Collectors.averagingDouble((Person::getAge)));
 
-        for (Person person : listOfPeople) {
-            tmpAverageAge += person.getAge();
-            counter++;
-        }
-        System.out.println("The average age of people is " + (double) (tmpAverageAge / counter) + " years old.");
-        return (double) (tmpAverageAge / counter);
+        System.out.println("The average age of people is " + averageAge  + " years old.");
+        return averageAge;
     }
 
     public static Map<String, Integer> peopleOfEachNationality(List<Person> listOfPeople) {
 
-        List<String> nationality = new ArrayList<>();
-
-        for (Person person : listOfPeople) {
-            nationality.add(person.getNationality().name());
-        }
-
-        Map<String, Integer> peopleOfEachNationality = new HashMap<>();
-        for (String ntnlt : nationality) {
-            Integer count = peopleOfEachNationality.get(ntnlt);
-            peopleOfEachNationality.put(ntnlt, (count == null) ? 1 : count + 1);
-        }
+        Map<String, Integer> peopleOfEachNationality = listOfPeople.stream()
+                .collect(Collectors.toMap(person -> person.getNationality().name(), s -> 1, Integer::sum));
 
         for (Map.Entry entry : peopleOfEachNationality.entrySet()) {
             System.out.println("Nationality: " + entry.getKey() + "; Number of persons: "
                     + entry.getValue());
         }
-
         return peopleOfEachNationality;
     }
 
     public static List<String> fullNames(List<Person> listOfPeople) {
 
-        List<String> fullNames = new ArrayList<>();
-        String onePerson;
+        List<String> fullNames = listOfPeople.stream()
+                .map(p -> p.getLastName() + " " + p.getName() + " " + p.getPatronymicName())
+                .collect(Collectors.toList());
 
-        for (Person person : listOfPeople) {
-            onePerson = person.getName() + " " + person.getPatronymicName() + " " + person.getLastName();
-            fullNames.add(onePerson);
-        }
         for (String person : fullNames) {
             System.out.println(person);
         }
@@ -120,38 +96,22 @@ public class ListOfPeopleDecisionByCycles {
 
     public static List<String> withInitials(List<Person> listOfPeople) {
 
-        List<String> withInitials = new ArrayList<>();
-        String onePerson;
+        List<String> withInitials = listOfPeople.stream()
+                .map(p -> p.getLastName() + " " + p.getName().charAt(0) + "." + p.getPatronymicName().charAt(0) + ".")
+                .collect(Collectors.toList());
 
-        for (Person person : listOfPeople) {
-            onePerson = person.getLastName() + " " + person.getName().charAt(0) + "." + person.getPatronymicName().charAt(0) + ".";
-            withInitials.add(onePerson);
-        }
         for (String person : withInitials) {
             System.out.println(person);
         }
+
         return withInitials;
     }
 
     public static Map<String, List<Person>> listByLastname(List<Person> listOfPeople) {
 
-        List<String> lastNameList = new ArrayList<>();
-        Map<String, List<Person>> listByLastname = new HashMap<>();
+        Map<String, List<Person>> listByLastname = listOfPeople.stream()
+                .collect(Collectors.groupingBy(Person::getLastName));
 
-        for (Person person : listOfPeople) {
-            if (!lastNameList.contains(person.getLastName())) {
-                lastNameList.add(person.getLastName());
-            }
-        }
-        for (String lstnm : lastNameList) {
-            List<Person> namesakes = new ArrayList<>();
-            for (Person person : listOfPeople) {
-                if (person.getLastName().equals(lstnm)) {
-                    namesakes.add(person);
-                }
-            }
-            listByLastname.put(lstnm, namesakes);
-        }
         for (Map.Entry<String, List<Person>> entry : listByLastname.entrySet()) {
             System.out.println(entry.getKey() + " - " + entry.getValue());
         }
@@ -160,13 +120,11 @@ public class ListOfPeopleDecisionByCycles {
 
     public static List<Person> uniquePeople(List<Person> listOfPeople) {
 
-        List<Person> uniquePeople = new ArrayList<>();
-        for (Person person : listOfPeople) {
-            if (!(uniquePeople.contains(person)))
-                uniquePeople.add(person);
-        }
-        System.out.println("This is the unique people:");
-        for(Person person:uniquePeople)
+        List<Person> uniquePeople = listOfPeople.stream()
+                .distinct()
+                .collect(Collectors.toList());
+
+        for (Person person : uniquePeople)
             System.out.println(person);
 
         return uniquePeople;
@@ -174,19 +132,10 @@ public class ListOfPeopleDecisionByCycles {
 
     public static List<Person> sortedByLastname(List<Person> listOfPeople) {
 
-        Person temp;
-        List<Person> sortedByLastname = new ArrayList<>(listOfPeople);
+        List<Person> sortedByLastname = listOfPeople.stream()
+                .sorted(Comparator.comparing(Person::getLastName))
+                .collect(Collectors.toList());
 
-        for (int i = 0; i < sortedByLastname.size(); i++) {
-            for (int j = i + 1; j < sortedByLastname.size(); j++) {
-                if (sortedByLastname.get(i).getLastName().compareTo(sortedByLastname.get(j).getLastName()) > 0) {
-
-                    temp = sortedByLastname.get(i);
-                    sortedByLastname.set(i, sortedByLastname.get(j));
-                    sortedByLastname.set(j, temp);
-                }
-            }
-        }
         for (Person person : sortedByLastname)
             System.out.println(person);
 
@@ -195,16 +144,13 @@ public class ListOfPeopleDecisionByCycles {
 
     public static List<Person> peopleByNationality(List<Person> listOfPeople, Nationality nationality) {
 
-        List<Person> peopleByNationality = new ArrayList<>();
+        List<Person> peopleByNationality = listOfPeople.stream()
+                .filter(p -> p.getNationality().equals(nationality.toString()))
+                .collect(Collectors.toList());
 
-        for(Person person : listOfPeople) {
-            if((person.getNationality()).equals(nationality.toString())) {
-                peopleByNationality.add(person);
-            }
-        }
         System.out.println("This people are " + nationality + " : ");
         for(Person person:peopleByNationality)
-            System.out.println(person);
+        System.out.println(person);
 
         return peopleByNationality;
     }
