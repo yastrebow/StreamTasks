@@ -50,7 +50,7 @@ public class Person implements Comparable{
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getLastName(), getPatronymicName(), getAge(), getNationality());
+        return Objects.hash(getName(), getLastName(), getPatronymicName(), getAge(), getNationality());
     }
 
     @Override
