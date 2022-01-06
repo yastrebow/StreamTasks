@@ -86,7 +86,7 @@ public class ListOfPeopleDecisionByCycles {
         List<String> nationality = new ArrayList<>();
 
         for (Person person : listOfPeople) {
-            nationality.add(person.getNationality());
+            nationality.add(person.getNationality().name());
         }
 
         Map<String, Integer> peopleOfEachNationality = new HashMap<>();

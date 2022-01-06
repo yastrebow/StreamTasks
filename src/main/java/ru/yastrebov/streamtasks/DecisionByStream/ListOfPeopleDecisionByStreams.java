@@ -42,7 +42,7 @@ public class ListOfPeopleDecisionByStreams {
 //        peopleOfEachNationality(listOfPeople);
 //        fullNames(listOfPeople);
 //        withInitials(listOfPeople);
-//       listByLastname(listOfPeople);
+       listByLastname(listOfPeople);
 //        uniquePeople(listOfPeople);
 //        sortedByLastname(listOfPeople);
 //        peopleByNationality(listOfPeople, Nationality.UKRAINIAN);
@@ -73,7 +73,7 @@ public class ListOfPeopleDecisionByStreams {
     public static Map<String, Integer> peopleOfEachNationality(List<Person> listOfPeople) {
 
         Map<String, Integer> peopleOfEachNationality = listOfPeople.stream()
-                .collect(Collectors.toMap(Person::getNationality, s -> 1, Integer::sum));
+                .collect(Collectors.toMap(person -> person.getNationality().name(), s -> 1, Integer::sum));
 
         for (Map.Entry entry : peopleOfEachNationality.entrySet()) {
             System.out.println("Nationality: " + entry.getKey() + "; Number of persons: "
@@ -121,7 +121,6 @@ public class ListOfPeopleDecisionByStreams {
     public static List<Person> uniquePeople(List<Person> listOfPeople) {
 
         List<Person> uniquePeople = listOfPeople.stream()
-//                .sorted()
                 .distinct()
                 .collect(Collectors.toList());
 
