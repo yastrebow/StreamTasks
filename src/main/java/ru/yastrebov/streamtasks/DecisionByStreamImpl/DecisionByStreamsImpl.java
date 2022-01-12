@@ -1,38 +1,16 @@
-package ru.yastrebov.streamtasks.DecisionByStream;
+package ru.yastrebov.streamtasks.DecisionByStreamImpl;
 
+import ru.yastrebov.streamtasks.Decision;
 import ru.yastrebov.streamtasks.Person;
 import ru.yastrebov.streamtasks.enums.Nationality;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class ListOfPeopleDecisionByStreams {
+public class DecisionByStreamsImpl implements Decision {
     public static void main(String[] args) {
-        Person p1 = new Person(1, "Василий", "Чапаев", "Иванович", 45, Nationality.UKRAINIAN);
-        Person p2 = new Person(2, "Василий", "Чапаев", "Иванович", 45, Nationality.UKRAINIAN);
-        Person p3 = new Person(3, "Виктор", "Чапаев", "Ипполитович", 37, Nationality.JEW);
-        Person p4 = new Person(4, "Сергей", "Иванов", "Владиславович", 37, Nationality.RUSSIAN);
-        Person p5 = new Person(5, "Семен", "Рабинович", "Аронович", 56, Nationality.JEW);
-        Person p6 = new Person(6, "Арон", "Рабинович", "Моисеевич", 16, Nationality.RUSSIAN);
-        Person p7 = new Person(7, "Василий", "Иванов", "Петрович", 37, Nationality.JEW);
-        Person p8 = new Person(8, "Василиса", "Иванова", "Сергеевна", 27, Nationality.RUSSIAN);
-        Person p9 = new Person(9, "Мария", "Бубка", "Петровна", 17, Nationality.UKRAINIAN);
-        Person p10 = new Person(10, "Циля", "Лифшиц", "Соломоновна", 67, Nationality.JEW);
-        Person p11 = new Person(11, "Виктория", "Иванова", "Серафимовна", 47, Nationality.RUSSIAN);
-        Person p12 = new Person(12, "Цецилия", "Погорелова", "Федоровна", 5, Nationality.RUSSIAN);
-        Person p13 = new Person(13, "Василий", "Иванов", "Петрович", 37, Nationality.JEW);
-        Person p14 = new Person(14, "Василиса", "Иванова", "Сергеевна", 27, Nationality.RUSSIAN);
-
-        List<Person> tmpListOfPeople = List.of(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14);
-
-        List<Person> listOfPeople = new ArrayList<>();
-
-        listOfPeople.add(new Person(0, "Василий", "Чапаев", "Иванович", 45, Nationality.UKRAINIAN));
-
-        listOfPeople.addAll(tmpListOfPeople);
 
 //                for(Person person: listOfPeople)  {
 //            System.out.println(person.getId() + ". " + person.getName() + " " + person.getPatronymicName() + " " + person.getLastName() + " , " + person.getAge() + " , " + person.getNationality());
@@ -42,14 +20,14 @@ public class ListOfPeopleDecisionByStreams {
 //        peopleOfEachNationality(listOfPeople);
 //        fullNames(listOfPeople);
 //        withInitials(listOfPeople);
-       listByLastname(listOfPeople);
+//       listByLastname(listOfPeople);
 //        uniquePeople(listOfPeople);
 //        sortedByLastname(listOfPeople);
 //        peopleByNationality(listOfPeople, Nationality.UKRAINIAN);
 
     }
-
-    public static List<Person> peopleOverEighteen(List<Person> listOfPeople) {
+@Override
+    public List<Person> peopleOverEighteen(List<Person> listOfPeople) {
 
         List<Person> peopleOverEighteen = listOfPeople.stream()
                 .filter(a -> a.getAge() > 18)
@@ -60,8 +38,8 @@ public class ListOfPeopleDecisionByStreams {
             System.out.println(person);
         return peopleOverEighteen;
     }
-
-    public static Double averageAge(List<Person> listOfPeople) {
+@Override
+    public Double averageAge(List<Person> listOfPeople) {
 
         Double averageAge = listOfPeople.stream()
                 .collect(Collectors.averagingDouble((Person::getAge)));
@@ -70,7 +48,8 @@ public class ListOfPeopleDecisionByStreams {
         return averageAge;
     }
 
-    public static Map<String, Integer> peopleOfEachNationality(List<Person> listOfPeople) {
+    @Override
+    public Map<String, Integer> peopleOfEachNationality(List<Person> listOfPeople) {
 
         Map<String, Integer> peopleOfEachNationality = listOfPeople.stream()
                 .collect(Collectors.toMap(person -> person.getNationality().name(), s -> 1, Integer::sum));
@@ -82,10 +61,11 @@ public class ListOfPeopleDecisionByStreams {
         return peopleOfEachNationality;
     }
 
-    public static List<String> fullNames(List<Person> listOfPeople) {
+    @Override
+    public List<String> fullNames(List<Person> listOfPeople) {
 
         List<String> fullNames = listOfPeople.stream()
-                .map(p -> p.getLastName() + " " + p.getName() + " " + p.getPatronymicName())
+                .map(p -> p.getName() + " " + p.getPatronymicName() + " " + p.getLastName())
                 .collect(Collectors.toList());
 
         for (String person : fullNames) {
@@ -94,7 +74,8 @@ public class ListOfPeopleDecisionByStreams {
         return fullNames;
     }
 
-    public static List<String> withInitials(List<Person> listOfPeople) {
+    @Override
+    public List<String> withInitials(List<Person> listOfPeople) {
 
         List<String> withInitials = listOfPeople.stream()
                 .map(p -> p.getLastName() + " " + p.getName().charAt(0) + "." + p.getPatronymicName().charAt(0) + ".")
@@ -107,7 +88,8 @@ public class ListOfPeopleDecisionByStreams {
         return withInitials;
     }
 
-    public static Map<String, List<Person>> listByLastname(List<Person> listOfPeople) {
+    @Override
+    public Map<String, List<Person>> listByLastname(List<Person> listOfPeople) {
 
         Map<String, List<Person>> listByLastname = listOfPeople.stream()
                 .collect(Collectors.groupingBy(Person::getLastName));
@@ -118,7 +100,8 @@ public class ListOfPeopleDecisionByStreams {
         return listByLastname;
     }
 
-    public static List<Person> uniquePeople(List<Person> listOfPeople) {
+    @Override
+    public List<Person> uniquePeople(List<Person> listOfPeople) {
 
         List<Person> uniquePeople = listOfPeople.stream()
                 .distinct()
@@ -130,7 +113,8 @@ public class ListOfPeopleDecisionByStreams {
         return uniquePeople;
     }
 
-    public static List<Person> sortedByLastname(List<Person> listOfPeople) {
+    @Override
+    public List<Person> sortedByLastname(List<Person> listOfPeople) {
 
         List<Person> sortedByLastname = listOfPeople.stream()
                 .sorted(Comparator.comparing(Person::getLastName))
@@ -142,10 +126,11 @@ public class ListOfPeopleDecisionByStreams {
         return sortedByLastname;
     }
 
-    public static List<Person> peopleByNationality(List<Person> listOfPeople, Nationality nationality) {
+    @Override
+    public List<Person> peopleByNationality(List<Person> listOfPeople, Enum<Nationality> nationality) {
 
         List<Person> peopleByNationality = listOfPeople.stream()
-                .filter(p -> p.getNationality().equals(nationality.toString()))
+                .filter(p -> p.getNationality().name().equals(nationality.name()))
                 .collect(Collectors.toList());
 
         System.out.println("This people are " + nationality + " : ");

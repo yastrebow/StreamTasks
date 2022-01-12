@@ -1,5 +1,7 @@
-package ru.yastrebov.streamtasks.DecisionByCycles;
+package ru.yastrebov.streamtasks.DecisionByCyclesImpl;
 
+import org.springframework.stereotype.Service;
+import ru.yastrebov.streamtasks.Decision;
 import ru.yastrebov.streamtasks.Person;
 import ru.yastrebov.streamtasks.enums.Nationality;
 
@@ -8,49 +10,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Service
+public class DecisionByCyclesImpl implements Decision {
 
-public class ListOfPeopleDecisionByCycles {
-        public static void main(String[] args) {
-
-        Person p1 = new Person(1, "Василий", "Чапаев", "Иванович", 45, Nationality.UKRAINIAN);
-        Person p2 = new Person(2, "Василий", "Чапаев", "Иванович", 45, Nationality.UKRAINIAN);
-        Person p3 = new Person(3, "Виктор", "Чапаев", "Ипполитович", 37, Nationality.JEW);
-        Person p4 = new Person(4, "Сергей", "Иванов", "Владиславович", 37, Nationality.RUSSIAN);
-        Person p5 = new Person(5, "Семен", "Рабинович", "Аронович", 56, Nationality.JEW);
-        Person p6 = new Person(6, "Арон", "Рабинович", "Моисеевич", 16, Nationality.RUSSIAN);
-        Person p7 = new Person(7, "Василий", "Иванов", "Петрович", 37, Nationality.JEW);
-        Person p8 = new Person(8, "Василиса", "Иванова", "Сергеевна", 27, Nationality.RUSSIAN);
-        Person p9 = new Person(9, "Мария", "Бубка", "Петровна", 17, Nationality.UKRAINIAN);
-        Person p10 = new Person(10, "Циля", "Лифшиц", "Соломоновна", 67, Nationality.JEW);
-        Person p11 = new Person(11, "Виктория", "Иванова", "Серафимовна", 47, Nationality.RUSSIAN);
-        Person p12 = new Person(12, "Цецилия", "Погорелова", "Федоровна", 5, Nationality.RUSSIAN);
-        Person p13 = new Person(13, "Василий", "Иванов", "Петрович", 37, Nationality.JEW);
-        Person p14 = new Person(14, "Василиса", "Иванова", "Сергеевна", 27, Nationality.RUSSIAN);
-
-        List<Person> tmpListOfPeople = List.of(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14);
-
-        List<Person> listOfPeople = new ArrayList<>();
-
-        listOfPeople.add(new Person(0, "Василий", "Чапаев", "Иванович", 45, Nationality.UKRAINIAN));
-
-        listOfPeople.addAll(tmpListOfPeople);
-
-//        for(Person person: listOfPeople)  {
-//            System.out.println(person.getId() + ". " + person.getName() + " " + person.getPatronymicName() + " " + person.getLastName() + " , " + person.getAge() + " , " + person.getNationality());
-//        }
-
-//        peopleOverEighteen(listOfPeople);
-//        averageAge(listOfPeople);
-//        peopleOfEachNationality(listOfPeople);
-        fullNames(listOfPeople);
-//        withInitials(listOfPeople);
-//       listByLastname(listOfPeople);
-//        uniquePeople(listOfPeople);
-//        sortedByLastname(listOfPeople);
-//peopleByNationality(listOfPeople, Nationality.JEW);
-    }
-
-    public static List<Person> peopleOverEighteen(List<Person> listOfPeople) {
+    @Override
+    public List<Person> peopleOverEighteen(List<Person> listOfPeople) {
 
         List<Person> peopleOverEighteen = new ArrayList<>();
 
@@ -68,8 +32,9 @@ public class ListOfPeopleDecisionByCycles {
 
     }
 
-    public static Double averageAge(List<Person> listOfPeople) {
-
+    @Override
+    public Double averageAge(List<Person> listOfPeople) {
+Double averageAge;
         Integer tmpAverageAge = 0;
         Integer counter = 0;
 
@@ -77,11 +42,15 @@ public class ListOfPeopleDecisionByCycles {
             tmpAverageAge += person.getAge();
             counter++;
         }
-        System.out.println("The average age of people is " + (double) (tmpAverageAge / counter) + " years old.");
-        return (double) (tmpAverageAge / counter);
+
+        averageAge = (double) tmpAverageAge/ counter;
+
+        System.out.println("The average age of people is " + averageAge + " years old.");
+        return averageAge;
     }
 
-    public static Map<String, Integer> peopleOfEachNationality(List<Person> listOfPeople) {
+    @Override
+    public Map<String, Integer> peopleOfEachNationality(List<Person> listOfPeople) {
 
         List<String> nationality = new ArrayList<>();
 
@@ -103,7 +72,8 @@ public class ListOfPeopleDecisionByCycles {
         return peopleOfEachNationality;
     }
 
-    public static List<String> fullNames(List<Person> listOfPeople) {
+    @Override
+    public List<String> fullNames(List<Person> listOfPeople) {
 
         List<String> fullNames = new ArrayList<>();
         String onePerson;
@@ -118,7 +88,8 @@ public class ListOfPeopleDecisionByCycles {
         return fullNames;
     }
 
-    public static List<String> withInitials(List<Person> listOfPeople) {
+    @Override
+    public List<String> withInitials(List<Person> listOfPeople) {
 
         List<String> withInitials = new ArrayList<>();
         String onePerson;
@@ -133,7 +104,8 @@ public class ListOfPeopleDecisionByCycles {
         return withInitials;
     }
 
-    public static Map<String, List<Person>> listByLastname(List<Person> listOfPeople) {
+    @Override
+    public Map<String, List<Person>> listByLastname(List<Person> listOfPeople) {
 
         List<String> lastNameList = new ArrayList<>();
         Map<String, List<Person>> listByLastname = new HashMap<>();
@@ -158,7 +130,8 @@ public class ListOfPeopleDecisionByCycles {
         return listByLastname;
     }
 
-    public static List<Person> uniquePeople(List<Person> listOfPeople) {
+    @Override
+    public List<Person> uniquePeople(List<Person> listOfPeople) {
 
         List<Person> uniquePeople = new ArrayList<>();
         for (Person person : listOfPeople) {
@@ -172,7 +145,8 @@ public class ListOfPeopleDecisionByCycles {
         return uniquePeople;
     }
 
-    public static List<Person> sortedByLastname(List<Person> listOfPeople) {
+    @Override
+    public List<Person> sortedByLastname(List<Person> listOfPeople) {
 
         Person temp;
         List<Person> sortedByLastname = new ArrayList<>(listOfPeople);
@@ -193,12 +167,13 @@ public class ListOfPeopleDecisionByCycles {
         return sortedByLastname;
     }
 
-    public static List<Person> peopleByNationality(List<Person> listOfPeople, Nationality nationality) {
+    @Override
+    public List<Person> peopleByNationality(List<Person> listOfPeople, Enum<Nationality> nationality) {
 
         List<Person> peopleByNationality = new ArrayList<>();
 
         for(Person person : listOfPeople) {
-            if((person.getNationality()).equals(nationality.toString())) {
+            if((person.getNationality().name()).equals(nationality.name())) {
                 peopleByNationality.add(person);
             }
         }
