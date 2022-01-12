@@ -1,32 +1,16 @@
-package ru.yastrebov.streamtasks.DecisionByStreamImpl;
+package ru.yastrebov.streamtasks.decision.impl;
 
-import ru.yastrebov.streamtasks.Decision;
-import ru.yastrebov.streamtasks.Person;
+import ru.yastrebov.streamtasks.decision.Decision;
+import ru.yastrebov.streamtasks.model.Person;
 import ru.yastrebov.streamtasks.enums.Nationality;
-
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 public class DecisionByStreamsImpl implements Decision {
-    public static void main(String[] args) {
 
-//                for(Person person: listOfPeople)  {
-//            System.out.println(person.getId() + ". " + person.getName() + " " + person.getPatronymicName() + " " + person.getLastName() + " , " + person.getAge() + " , " + person.getNationality());
-//        }
-//        peopleOverEighteen(listOfPeople);
-//        averageAge(listOfPeople);
-//        peopleOfEachNationality(listOfPeople);
-//        fullNames(listOfPeople);
-//        withInitials(listOfPeople);
-//       listByLastname(listOfPeople);
-//        uniquePeople(listOfPeople);
-//        sortedByLastname(listOfPeople);
-//        peopleByNationality(listOfPeople, Nationality.UKRAINIAN);
-
-    }
-@Override
+    @Override
     public List<Person> peopleOverEighteen(List<Person> listOfPeople) {
 
         List<Person> peopleOverEighteen = listOfPeople.stream()
@@ -38,13 +22,14 @@ public class DecisionByStreamsImpl implements Decision {
             System.out.println(person);
         return peopleOverEighteen;
     }
-@Override
+
+    @Override
     public Double averageAge(List<Person> listOfPeople) {
 
         Double averageAge = listOfPeople.stream()
                 .collect(Collectors.averagingDouble((Person::getAge)));
 
-        System.out.println("The average age of people is " + averageAge  + " years old.");
+        System.out.println("The average age of people is " + averageAge + " years old.");
         return averageAge;
     }
 
@@ -134,8 +119,8 @@ public class DecisionByStreamsImpl implements Decision {
                 .collect(Collectors.toList());
 
         System.out.println("This people are " + nationality + " : ");
-        for(Person person:peopleByNationality)
-        System.out.println(person);
+        for (Person person : peopleByNationality)
+            System.out.println(person);
 
         return peopleByNationality;
     }

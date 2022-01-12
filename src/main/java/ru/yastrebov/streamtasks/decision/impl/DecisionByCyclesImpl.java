@@ -1,10 +1,9 @@
-package ru.yastrebov.streamtasks.DecisionByCyclesImpl;
+package ru.yastrebov.streamtasks.decision.impl;
 
 import org.springframework.stereotype.Service;
-import ru.yastrebov.streamtasks.Decision;
-import ru.yastrebov.streamtasks.Person;
+import ru.yastrebov.streamtasks.decision.Decision;
+import ru.yastrebov.streamtasks.model.Person;
 import ru.yastrebov.streamtasks.enums.Nationality;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,12 +28,11 @@ public class DecisionByCyclesImpl implements Decision {
             System.out.println(person.getId() + ". " + person.getName() + "  " + person.getPatronymicName() + "  " + person.getLastName() + " , " + person.getAge() + " , " + person.getNationality());
         }
         return (peopleOverEighteen);
-
     }
 
     @Override
     public Double averageAge(List<Person> listOfPeople) {
-Double averageAge;
+        Double averageAge;
         Integer tmpAverageAge = 0;
         Integer counter = 0;
 
@@ -43,7 +41,7 @@ Double averageAge;
             counter++;
         }
 
-        averageAge = (double) tmpAverageAge/ counter;
+        averageAge = (double) tmpAverageAge / counter;
 
         System.out.println("The average age of people is " + averageAge + " years old.");
         return averageAge;
@@ -139,7 +137,7 @@ Double averageAge;
                 uniquePeople.add(person);
         }
         System.out.println("This is the unique people:");
-        for(Person person:uniquePeople)
+        for (Person person : uniquePeople)
             System.out.println(person);
 
         return uniquePeople;
@@ -172,13 +170,13 @@ Double averageAge;
 
         List<Person> peopleByNationality = new ArrayList<>();
 
-        for(Person person : listOfPeople) {
-            if((person.getNationality().name()).equals(nationality.name())) {
+        for (Person person : listOfPeople) {
+            if ((person.getNationality().name()).equals(nationality.name())) {
                 peopleByNationality.add(person);
             }
         }
         System.out.println("This people are " + nationality + " : ");
-        for(Person person:peopleByNationality)
+        for (Person person : peopleByNationality)
             System.out.println(person);
 
         return peopleByNationality;

@@ -1,10 +1,10 @@
-package ru.yastrebov.streamtasks.DecisionByCycles;
+package ru.yastrebov.streamtasks.decision.impl;
 
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
-import ru.yastrebov.streamtasks.DecisionByCyclesImpl.DecisionByCyclesImpl;
-import ru.yastrebov.streamtasks.Person;
+import ru.yastrebov.streamtasks.model.Person;
+import ru.yastrebov.streamtasks.decision.impl.DecisionByCyclesImpl;
 import ru.yastrebov.streamtasks.enums.Nationality;
 import java.util.ArrayList;
 import java.util.HashMap;

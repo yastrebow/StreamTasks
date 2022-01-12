@@ -1,5 +1,6 @@
-package ru.yastrebov.streamtasks;
+package ru.yastrebov.streamtasks.decision;
 
+import ru.yastrebov.streamtasks.model.Person;
 import ru.yastrebov.streamtasks.enums.Nationality;
 
 import java.util.List;

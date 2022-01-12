@@ -1,4 +1,4 @@
-package ru.yastrebov.streamtasks;
+package ru.yastrebov.streamtasks.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
