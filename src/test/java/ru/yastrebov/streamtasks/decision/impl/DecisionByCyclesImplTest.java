@@ -4,9 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 import ru.yastrebov.streamtasks.model.Person;
-import ru.yastrebov.streamtasks.decision.impl.DecisionByCyclesImpl;
 import ru.yastrebov.streamtasks.enums.Nationality;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -72,22 +70,10 @@ class DecisionByCyclesImplTest {
     void fullNamesTest() {
 
         List<String> fullNames = decisionByCycles.fullNames(testListOfPeople);
-        List<String> fullNamesTest = new ArrayList<>();
-
-        fullNamesTest.add("Василий Иванович Чапаев");
-        fullNamesTest.add("Василий Иванович Чапаев");
-        fullNamesTest.add("Виктор Ипполитович Чапаев");
-        fullNamesTest.add("Сергей Владиславович Иванов");
-        fullNamesTest.add("Семен Аронович Рабинович");
-        fullNamesTest.add("Арон Моисеевич Рабинович");
-        fullNamesTest.add("Василий Петрович Иванов");
-        fullNamesTest.add("Василиса Сергеевна Иванова");
-        fullNamesTest.add("Мария Петровна Бубка");
-        fullNamesTest.add("Циля Соломоновна Лифшиц");
-        fullNamesTest.add("Виктория Серафимовна Иванова");
-        fullNamesTest.add("Цецилия Федоровна Погорелова");
-        fullNamesTest.add("Василий Петрович Иванов");
-        fullNamesTest.add("Василиса Сергеевна Иванова");
+        List<String> fullNamesTest = List.of("Василий Иванович Чапаев", "Василий Иванович Чапаев", "Виктор Ипполитович Чапаев",
+                "Сергей Владиславович Иванов", "Семен Аронович Рабинович", "Арон Моисеевич Рабинович", "Василий Петрович Иванов",
+                "Василиса Сергеевна Иванова", "Мария Петровна Бубка", "Циля Соломоновна Лифшиц", "Виктория Серафимовна Иванова",
+                "Цецилия Федоровна Погорелова", "Василий Петрович Иванов", "Василиса Сергеевна Иванова");
 
         assertEquals(fullNames, fullNamesTest);
     }
@@ -95,22 +81,8 @@ class DecisionByCyclesImplTest {
     @Test
     void withInitialsTest() {
         List<String> withInitials = decisionByCycles.withInitials(testListOfPeople);
-
-        List<String> withInitialsTest = new ArrayList<>();
-        withInitialsTest.add("Чапаев В.И.");
-        withInitialsTest.add("Чапаев В.И.");
-        withInitialsTest.add("Чапаев В.И.");
-        withInitialsTest.add("Иванов С.В.");
-        withInitialsTest.add("Рабинович С.А.");
-        withInitialsTest.add("Рабинович А.М.");
-        withInitialsTest.add("Иванов В.П.");
-        withInitialsTest.add("Иванова В.С.");
-        withInitialsTest.add("Бубка М.П.");
-        withInitialsTest.add("Лифшиц Ц.С.");
-        withInitialsTest.add("Иванова В.С.");
-        withInitialsTest.add("Погорелова Ц.Ф.");
-        withInitialsTest.add("Иванов В.П.");
-        withInitialsTest.add("Иванова В.С.");
+        List<String> withInitialsTest = List.of("Чапаев В.И.", "Чапаев В.И.", "Чапаев В.И.", "Иванов С.В.", "Рабинович С.А.", "Рабинович А.М.",
+                "Иванов В.П.", "Иванова В.С.", "Бубка М.П.", "Лифшиц Ц.С.", "Иванова В.С.", "Погорелова Ц.Ф.", "Иванов В.П.", "Иванова В.С.");
 
         assertEquals(withInitials, withInitialsTest);
     }
@@ -127,7 +99,6 @@ class DecisionByCyclesImplTest {
         List<Person> listBubka = List.of(p9);
         List<Person> listLifshits = List.of(p10);
         List<Person> listPogorelova = List.of(p12);
-
         listByLastnameTest.put("Иванова", listIvanova);
         listByLastnameTest.put("Рабинович", listRabinovich);
         listByLastnameTest.put("Погорелова", listPogorelova);
@@ -142,19 +113,7 @@ class DecisionByCyclesImplTest {
     @Test
     void uniquePeopleTest() {
         List<Person> uniquePeople = decisionByCycles.uniquePeople(testListOfPeople);
-        List<Person> uniquePeopleTest = new ArrayList<>();
-
-        uniquePeopleTest.add(p1);
-        uniquePeopleTest.add(p3);
-        uniquePeopleTest.add(p4);
-        uniquePeopleTest.add(p5);
-        uniquePeopleTest.add(p6);
-        uniquePeopleTest.add(p7);
-        uniquePeopleTest.add(p8);
-        uniquePeopleTest.add(p9);
-        uniquePeopleTest.add(p10);
-        uniquePeopleTest.add(p11);
-        uniquePeopleTest.add(p12);
+        List<Person> uniquePeopleTest = List.of(p1, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12);
 
         assertEquals(uniquePeople, uniquePeopleTest);
     }
@@ -162,22 +121,7 @@ class DecisionByCyclesImplTest {
     @Test
     void sortedByLastnameTest() {
         List<Person> sortedByLastname = decisionByCycles.sortedByLastname(testListOfPeople);
-        List<Person> sortedByLastnameTest = new ArrayList<>();
-
-        sortedByLastnameTest.add(p9);
-        sortedByLastnameTest.add(p7);
-        sortedByLastnameTest.add(p4);
-        sortedByLastnameTest.add(p13);
-        sortedByLastnameTest.add(p11);
-        sortedByLastnameTest.add(p8);
-        sortedByLastnameTest.add(p14);
-        sortedByLastnameTest.add(p10);
-        sortedByLastnameTest.add(p12);
-        sortedByLastnameTest.add(p5);
-        sortedByLastnameTest.add(p6);
-        sortedByLastnameTest.add(p3);
-        sortedByLastnameTest.add(p1);
-        sortedByLastnameTest.add(p2);
+        List<Person> sortedByLastnameTest = List.of(p9, p7, p4, p13, p11, p8, p14, p10, p12, p5, p6, p3, p1, p2);
 
         assertEquals(sortedByLastname, sortedByLastnameTest);
     }
@@ -185,14 +129,7 @@ class DecisionByCyclesImplTest {
     @Test
     void peopleByNationalityTest() {
         List<Person> peopleByNationality = decisionByCycles.peopleByNationality(testListOfPeople, nationality);
-        List<Person> peopleByNationalityText = new ArrayList<>();
-
-        peopleByNationalityText.add(p4);
-        peopleByNationalityText.add(p6);
-        peopleByNationalityText.add(p8);
-        peopleByNationalityText.add(p11);
-        peopleByNationalityText.add(p12);
-        peopleByNationalityText.add(p14);
+        List<Person> peopleByNationalityText = List.of(p4, p6, p8, p11, p12, p14);
 
         assertEquals(peopleByNationality, peopleByNationalityText);
     }

@@ -4,9 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 import ru.yastrebov.streamtasks.model.Person;
-import ru.yastrebov.streamtasks.decision.impl.DecisionByStreamsImpl;
 import ru.yastrebov.streamtasks.enums.Nationality;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -75,21 +73,10 @@ class DecisionByStreamsImplTest {
     @Test
     void fullNamesTest() {
         List<String> fullNames = decisionByStreams.fullNames(testListOfPeople);
-        List<String> fullNamesTest = new ArrayList<>();
-        fullNamesTest.add("Василий Иванович Чапаев");
-        fullNamesTest.add("Василий Иванович Чапаев");
-        fullNamesTest.add("Виктор Ипполитович Чапаев");
-        fullNamesTest.add("Сергей Владиславович Иванов");
-        fullNamesTest.add("Семен Аронович Рабинович");
-        fullNamesTest.add("Арон Моисеевич Рабинович");
-        fullNamesTest.add("Василий Петрович Иванов");
-        fullNamesTest.add("Василиса Сергеевна Иванова");
-        fullNamesTest.add("Мария Петровна Бубка");
-        fullNamesTest.add("Циля Соломоновна Лифшиц");
-        fullNamesTest.add("Виктория Серафимовна Иванова");
-        fullNamesTest.add("Цецилия Федоровна Погорелова");
-        fullNamesTest.add("Василий Петрович Иванов");
-        fullNamesTest.add("Василиса Сергеевна Иванова");
+        List<String> fullNamesTest = List.of("Василий Иванович Чапаев", "Василий Иванович Чапаев", "Виктор Ипполитович Чапаев",
+                "Сергей Владиславович Иванов", "Семен Аронович Рабинович", "Арон Моисеевич Рабинович", "Василий Петрович Иванов",
+                "Василиса Сергеевна Иванова", "Мария Петровна Бубка", "Циля Соломоновна Лифшиц", "Виктория Серафимовна Иванова",
+                "Цецилия Федоровна Погорелова", "Василий Петрович Иванов", "Василиса Сергеевна Иванова");
 
         assertEquals(fullNames, fullNamesTest);
     }
@@ -97,21 +84,8 @@ class DecisionByStreamsImplTest {
     @Test
     void withInitialsTest() {
         List<String> withInitials = decisionByStreams.withInitials(testListOfPeople);
-        List<String> withInitialsTest = new ArrayList<>();
-        withInitialsTest.add("Чапаев В.И.");
-        withInitialsTest.add("Чапаев В.И.");
-        withInitialsTest.add("Чапаев В.И.");
-        withInitialsTest.add("Иванов С.В.");
-        withInitialsTest.add("Рабинович С.А.");
-        withInitialsTest.add("Рабинович А.М.");
-        withInitialsTest.add("Иванов В.П.");
-        withInitialsTest.add("Иванова В.С.");
-        withInitialsTest.add("Бубка М.П.");
-        withInitialsTest.add("Лифшиц Ц.С.");
-        withInitialsTest.add("Иванова В.С.");
-        withInitialsTest.add("Погорелова Ц.Ф.");
-        withInitialsTest.add("Иванов В.П.");
-        withInitialsTest.add("Иванова В.С.");
+        List<String> withInitialsTest = List.of("Чапаев В.И.", "Чапаев В.И.", "Чапаев В.И.", "Иванов С.В.", "Рабинович С.А.", "Рабинович А.М.",
+                "Иванов В.П.", "Иванова В.С.", "Бубка М.П.", "Лифшиц Ц.С.", "Иванова В.С.", "Погорелова Ц.Ф.", "Иванов В.П.", "Иванова В.С.");
 
         assertEquals(withInitials, withInitialsTest);
     }
@@ -141,18 +115,7 @@ class DecisionByStreamsImplTest {
     @Test
     void uniquePeopleTest() {
         List<Person> uniquePeople = decisionByStreams.uniquePeople(testListOfPeople);
-        List<Person> uniquePeopleTest = new ArrayList<>();
-        uniquePeopleTest.add(p1);
-        uniquePeopleTest.add(p3);
-        uniquePeopleTest.add(p4);
-        uniquePeopleTest.add(p5);
-        uniquePeopleTest.add(p6);
-        uniquePeopleTest.add(p7);
-        uniquePeopleTest.add(p8);
-        uniquePeopleTest.add(p9);
-        uniquePeopleTest.add(p10);
-        uniquePeopleTest.add(p11);
-        uniquePeopleTest.add(p12);
+        List<Person> uniquePeopleTest = List.of(p1, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12);
 
         assertEquals(uniquePeople, uniquePeopleTest);
     }
@@ -160,21 +123,7 @@ class DecisionByStreamsImplTest {
     @Test
     void sortedByLastnameTest() {
         List<Person> sortedByLastname = decisionByStreams.sortedByLastname(testListOfPeople);
-        List<Person> sortedByLastnameTest = new ArrayList<>();
-        sortedByLastnameTest.add(p9);
-        sortedByLastnameTest.add(p4);
-        sortedByLastnameTest.add(p7);
-        sortedByLastnameTest.add(p13);
-        sortedByLastnameTest.add(p8);
-        sortedByLastnameTest.add(p11);
-        sortedByLastnameTest.add(p14);
-        sortedByLastnameTest.add(p10);
-        sortedByLastnameTest.add(p12);
-        sortedByLastnameTest.add(p5);
-        sortedByLastnameTest.add(p6);
-        sortedByLastnameTest.add(p1);
-        sortedByLastnameTest.add(p2);
-        sortedByLastnameTest.add(p3);
+        List<Person> sortedByLastnameTest = List.of(p9, p4, p7, p13, p8, p11, p14, p10, p12, p5, p6, p1, p2, p3);
 
         assertEquals(sortedByLastname, sortedByLastnameTest);
     }
@@ -182,12 +131,7 @@ class DecisionByStreamsImplTest {
     @Test
     void peopleByNationalityTest() {
         List<Person> peopleByNationality = decisionByStreams.peopleByNationality(testListOfPeople, nationality);
-        List<Person> peopleByNationalityText = new ArrayList<>();
-        peopleByNationalityText.add(p3);
-        peopleByNationalityText.add(p5);
-        peopleByNationalityText.add(p7);
-        peopleByNationalityText.add(p10);
-        peopleByNationalityText.add(p13);
+        List<Person> peopleByNationalityText = List.of(p3, p5, p7, p10, p13);
 
         assertEquals(peopleByNationality, peopleByNationalityText);
     }
